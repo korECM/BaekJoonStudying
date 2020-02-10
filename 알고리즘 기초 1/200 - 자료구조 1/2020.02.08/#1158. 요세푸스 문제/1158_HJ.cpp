@@ -21,28 +21,28 @@ void Remove(Node **phead, Node **ptail, Node *now);//노드 삭제
 
 int main(){
    Node *head, *tail;
-   
+
    InitList(&head, &tail);
-   
+
    int size_num = 0;
    int delete_pos = 0;
    scanf("%d %d", &size_num, &delete_pos);
-   
+
    if(size_num == 1){
        printf("<1>");
    }else{
         for(int i = 1; i < size_num + 1; i++){
            AddData(&head, &tail, i);
         }
-       
+
         Node *seek = head;
-       
+
         for(int i = 1; i < delete_pos; i++){
            seek = seek->next;
         }
         printf("<%d, ", seek->data);
         Remove(&head, &tail, seek);
-       
+
         for(int i = 2; i < size_num; i++){
             for(int j = 0; j < delete_pos; j++){
                seek = seek->next;
@@ -50,7 +50,7 @@ int main(){
             printf("%d, ", seek->data);
             Remove(&head, &tail, seek);
         }
-       
+
         for(int i = 0; i < delete_pos; i++){
            seek = seek->next;
         }

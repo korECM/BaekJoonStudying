@@ -52,13 +52,13 @@ char peak(int i){
 
 int main(){
     int order_size = 0;
-    char oper[MAX_STACK_SIZE] = {'\0'}; 
+    char oper[MAX_STACK_SIZE] = {'\0'};
     scanf("%d\n", &order_size);
-    
+
     for(int i = 0; i < order_size; i++){
         fgets(PS[i], sizeof(PS[i]), stdin);
     }
-    
+
     for(int i = 0; i < order_size; i++){
         int yes = 1;
         for(int j = 0; j < MAX_INT; j++){
@@ -71,7 +71,7 @@ int main(){
             }else{
                 break;
             }
-            
+
             if((PS[i][j + 1] ==')') && (top[i] == -1)){
                 printf("NO\n");
                 yes = 0;
@@ -82,7 +82,7 @@ int main(){
                 yes = 0;
                 break;
             }
-            
+
         }
             if(yes == 1 && top[i] != 0){
                // printf("    %d  ", top[i]);
