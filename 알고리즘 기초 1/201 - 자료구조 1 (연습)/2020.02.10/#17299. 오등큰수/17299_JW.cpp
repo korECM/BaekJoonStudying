@@ -8,8 +8,9 @@ using namespace std;
 int fre[1000001];
 
 int main() {
-
-    // freopen("input.txt" , "r", stdin);
+#ifndef ONLINE_JUDGE
+    freopen("input.txt", "r", stdin);
+#endif
 
     int n;
     cin >> n;
@@ -17,7 +18,6 @@ int main() {
     stack<int> s;
     stack<int> resultStack;
     string result("");
-
 
     for (int i = 0; i < n; i++) {
         cin >> dataes[i];
@@ -44,7 +44,10 @@ int main() {
     }
 
     cout << endl;
-    // fclose(stdin);
+
+#ifndef ONLINE_JUDGE
+    fclose(stdin);
+#endif
 
     return 0;
 }
