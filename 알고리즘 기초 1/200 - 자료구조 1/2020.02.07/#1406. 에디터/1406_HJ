@@ -1,0 +1,166 @@
+#include <stdio.h>
+#include <malloc.h>
+#include <string.h>
+#include <string>
+#include <iostream>
+using namespace std;
+
+#define MAX_LENGTH 100001
+#define MAX_ORDER 500001
+
+char order[MAX_ORDER][4] = {{'N'}};
+
+typedef struct node{
+    int key;
+    struct node *prev;
+    struct node *next;
+}NODE;
+
+void cursor_move_left(NODE *n);
+void cursor_move_right(NODE *n);
+void insert_node(NODE**, NODE **, char);
+int delete_node( NODE **, char);
+void display_node( NODE *);
+
+int main(){
+    NODE *cursor = NULL; //헤드
+    NODE *tmp = cursor;
+    
+    char sentence[MAX_LENGTH];
+    scanf("%s", sentence);
+    
+    for(int i = 0; i < strlen(sentence); i++){
+        insert_node(&tmp, &cursor, sentence[i]);
+    }
+    
+    int order_size = 0;
+    
+    scanf("%d", &order_size);
+    getchar();
+
+    for(int i = 0; i < order_size; i++){
+       // printf("%d\n", i);
+        fgets(order[i], sizeof(order[i]), stdin);
+        getchar();
+        //scanf("%s", order[i]);
+        
+    }
+
+    string push_value;
+    
+    for(int i = 0; i < order_size; i++){
+        int index_count = 5;
+        //printf("%d %c\n", i, order[i][0]);
+        
+        if(order[i][0] == 'L'){
+            //printf("%s\n", order[i]);
+            cursor_move_left(tmp);
+        }
+        else if(!strncmp(order[i], "D", 1)){
+            //printf("%s\n", order[i]);
+            cursor_move_right(tmp);
+        }
+        else if(!strncmp(order[i], "B", 1)){
+            //printf("%s\n", order[i]);
+        }
+        else if(!strncmp(order[i], "P", 1)){
+            //printf("%c\n", order[i][2]);
+            insert_node(&tmp, &cursor, order[i][2]);
+            cursor_move_left(tmp);
+            }
+    }
+    display_node(cursor);
+    
+    return 0;
+}
+
+void cursor_move_left(NODE *n){
+    n = n->prev;
+}
+
+void cursor_move_right(NODE *n){
+    n = n->next;
+}
+
+void insert_node(NODE **tmp, NODE **n, char key)
+{
+    NODE *new_node = (NODE *)malloc(sizeof(NODE));
+    NODE *temp = *n;
+   
+    new_node->next = NULL;
+    new_node->prev = NULL;
+    new_node->key = key;
+
+    if( temp == NULL)
+    {
+        *n = new_node;
+        return;
+    }
+
+    while( temp->next != *tmp)
+    {
+        temp = temp->next;
+    }
+
+    temp->next = new_node;
+    new_node->prev = temp;
+}
+
+int delete_node( NODE **n, char key)
+{
+    NODE *temp  = *n;
+    NODE *f     = NULL;
+
+    if( (*n)->key == key)
+    {
+        if( (*n)->next != NULL)
+        {
+            *n = (*n)->next;
+   
+            (*n)->prev = NULL;
+        }
+        else
+        {
+            *n = NULL;
+        }
+
+        free(temp);
+
+        return 0;
+    }
+
+    while( temp->next != NULL)
+    {
+        if( (temp->next)->key == key)
+        {
+            f = temp->next;
+
+            temp->next = (temp->next)->next;
+            (temp->next)->prev  = temp;
+
+            free(f);
+
+            return 0;
+        }
+
+        temp = temp->next;
+    }
+
+    printf("Can't find the key!\n");
+
+    return -1;
+}
+
+void display_node( NODE *n)
+{
+    NODE *temp = n;
+    NODE *p = NULL;
+    
+    while( temp != NULL)
+    {
+        printf("%c", temp->key);
+
+        p = temp;
+        temp = temp->next;
+    }
+}
