@@ -1,7 +1,7 @@
 #include <stdio.h>
 #define MAX_SIZE 1001
 
-long long gcd(long a, long b){
+long long gcd(long long a, long long b){
 	while(b!=0){
 		int r = a%b;
 		a= b;
