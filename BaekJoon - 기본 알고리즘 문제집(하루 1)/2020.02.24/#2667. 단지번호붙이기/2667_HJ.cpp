@@ -5,35 +5,13 @@
 
 char board[MAX_SIZE][MAX_SIZE];
 int area_size[625];
+int size;
 
-
-void search(char board_[][MAX_SIZE], int m, int n, int area_num){
-    if(board_[m + 1][n] == '1'){
-        area_size[area_num]++;
-        board_[m][n] == '2';
-        search(board_, m + 1, n, area_num);
-    }
-    if(board_[m - 1][n] == '1'){
-        area_size[area_num]++;
-        board_[m][n] == '2';
-        search(board_, m - 1, n, area_num);
-    }
-    if(board_[m][n + 1] == '1'){
-        area_size[area_num]++;
-        board_[m][n] == '2';
-        search(board_, m, n + 1, area_num);
-    }
-    if(board_[m][n - 1] == '1'){
-        area_size[area_num]++;
-        board_[m][n] == '2';
-        search(board_, m, n - 1, area_num);
-    }
-}
+void search(char board_[][MAX_SIZE], int m, int n, int area_num);
 
 int main(){
   int area = 0;
 
-  int size;
   scanf("%d", &size);
 
   for(int i = 0; i < size; i++){
@@ -45,7 +23,7 @@ int main(){
         if(board[i][j] == '1'){ //새로운 영역 발견
             area++;             //영역 수 증가
             area_size[area]++;
-            board[i][j] == '2';
+            board[i][j] == '2'; //탐색 완료한 영역표시
             search(board, i, j, area);
         }
     }
@@ -70,4 +48,38 @@ int main(){
     }
 
   return 0;
+}
+
+void search(char board_[][MAX_SIZE], int m, int n, int area_num){
+    if(board_[m + 1][n] == '1'){
+        area_size[area_num]++;
+        board_[m][n] == '2';
+        search(board_, m + 1, n, area_num);
+        printf("done\n");
+    }
+    if(board_[m - 1][n] == '1'){
+        area_size[area_num]++;
+        board_[m][n] == '2';
+        search(board_, m - 1, n, area_num);
+        printf("done\n");
+
+    }
+    if(board_[m][n + 1] == '1'){
+        area_size[area_num]++;
+        board_[m][n] == '2';
+        search(board_, m, n + 1, area_num);
+        printf("done\n");
+
+    }
+    if(board_[m][n - 1] == '1'){
+        area_size[area_num]++;
+        board_[m][n] == '2';
+        search(board_, m, n - 1, area_num);
+        printf("done\n");
+
+    }
+    if( board_[m][n - 1] != '1' && board_[m][n + 1] != '1' &&
+        board_[m - 1][n] != '1' && board_[m + 1][n] != '1'){
+            return;
+        }
 }
