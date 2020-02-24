@@ -12,6 +12,8 @@ int main() {
     string input;
     cin >> input;
 
+    bool flag = true;
+
     for (auto x : input) {
         int temp = x - '0';
         int a = 0;
@@ -22,8 +24,12 @@ int main() {
         b = temp % 2;
         temp /= 2;
         a = temp % 2;
-        //TODO: 이거 처음 숫자 0이면 출력 안되게 수정해야함
-        cout << c << b << a;
+        if (flag) {
+            cout << (a * 100 + b * 10 + c);
+            flag = false;
+            continue;
+        }
+        cout << a << b << c;
     }
     cout << endl;
 
