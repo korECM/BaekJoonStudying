@@ -1,31 +1,35 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
-#define MAX_SIZE 500000
+#define MAX_SIZE 1000001
 
 int main(){
-  int binary;
-  scanf("%d", &binary);
+  char binary[MAX_SIZE];
+  scanf("%s", binary);
 
-  int tmp;
+  char r_binary[MAX_SIZE];
+
+  int tmp = 0;
   int size = 0;
   int oct[MAX_SIZE];
 
-  while(binary != 0){
-    tmp = binary % 1000;
-    if(tmp/100 == 1){
-      oct[size] = oct[size] + 4;
-    }
-    tmp = tmp % 100;
-    if(tmp/10 == 1){
-      oct[size] = oct[size] + 2;
-    }
-    tmp = tmp % 10;
-    if(tmp == 1){
-      oct[size] = oct[size] + 1;
-    }
-    binary = binary / 1000;
-    size++;
+  for(int i = 1; i < strlen(binary) + 1; i++){
+    r_binary[strlen(binary) - i] = binary[i - 1];
+  }
+
+  while(tmp < strlen(binary)){
+      if(r_binary[tmp] == '1'){
+          oct[size] = oct[size] + 1;
+      }
+      if(r_binary[++tmp] == '1'){
+          oct[size] = oct[size] + 2;
+      }
+      if(r_binary[++tmp] == '1'){
+          oct[size] = oct[size] + 4;
+      }
+      tmp++;
+      size++;
   }
 
   for(int i = size - 1; i > -1; i--){
