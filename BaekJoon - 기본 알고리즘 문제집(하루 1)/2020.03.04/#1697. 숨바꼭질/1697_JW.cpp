@@ -24,7 +24,7 @@ int solve(int n, int k) {
         if (n < 0 || n > 100000 || visited[n])
             continue;
         visited[n] = true;
-        if(n >= k){
+        if (n >= k) {
             minimum = min(minimum, count + n - k);
             continue;
         }
@@ -36,17 +36,17 @@ int solve(int n, int k) {
 }
 
 int main() {
-// #ifndef ONLINE_JUDGE
-//     freopen("input.txt", "r", stdin);
-// #endif
+    // #ifndef ONLINE_JUDGE
+    //     freopen("input.txt", "r", stdin);
+    // #endif
 
     int n, k;
     cin >> n >> k;
     cout << solve(n, k) << endl;
 
-// #ifndef ONLINE_JUDGE
-//     fclose(stdin);
-// #endif
+    // #ifndef ONLINE_JUDGE
+    //     fclose(stdin);
+    // #endif
 
     return 0;
 }
