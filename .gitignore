@@ -13,3 +13,6 @@ BaekJoon - 기본 알고리즘 문제집(하루 1)/2020.02.12/#1793. 타일링/m
 .DS_Store
 **/.DS_Store
 .boj
+**/test/**
+**/main
+**/main.out
