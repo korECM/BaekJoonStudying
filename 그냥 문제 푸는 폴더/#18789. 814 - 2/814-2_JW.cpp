@@ -7,13 +7,13 @@
 #include <queue>
 #include <fstream>
 #include <ctime>
-#define GEN_NUM 10
-#define CROSS 5
+#define GEN_NUM 15
+#define CROSS 7
 #define RAN 3
 
 using namespace std;
-int dx[8] = { 1, 0, 0, -1, 1, 1, -1, -1 };
-int dy[8] = { 0, 1, -1, 0, 1, -1, 1, -1 };
+int dx[8] = {1, 0, 0, -1, 1, 1, -1, -1};
+int dy[8] = {0, 1, -1, 0, 1, -1, 1, -1};
 
 bool _solve(vector<vector<int>>& map, vector<int> list, int x, int y) {
     queue<pair<pair<int, int>, vector<int>>> task;
@@ -86,7 +86,9 @@ int main() {
         }
         g[i].second = 0;
     }
-    g[0].first = "3025525639092198825453871267561400805381951369767692335950488114402840631620553197722374657024008888977488490499";
+    g[0].first =
+        "7698124397088745600462955214527411788937731926365073422177049907698467"
+        "445121860315366750388140182422993501287127";
     long long gen = 1;
     vector<vector<int>> map(8, vector<int>(14));
     while (true) {
@@ -103,8 +105,8 @@ int main() {
             }
             int score = stoi(solve(map)) - 1;
             g[i].second = score;
-            if (score >= 450) {
-                cout << score << endl;
+            if (score >= 650) {
+                cout << score << "\n";
                 // cout << endl;
                 // for (int i = 0; i < 8; i++) {
                 //     for (int j = 0; j < 14; j++) {
@@ -119,6 +121,7 @@ int main() {
                 writeFile.open(to_string(score) + ".txt");
                 writeFile.write(input.c_str(), input.size());
                 writeFile.close();
+                cout << "\n" << input << "\n";
             }
             // if (score >= 1000) {
             //     cout << score << endl;
@@ -168,8 +171,7 @@ int main() {
             int anotherRandom = rand() % 10;
             if (true || anotherRandom > CROSS) {
                 ng[i].first = (randomNum % 2 == 0 ? g1 : g2);
-            }
-            else {
+            } else {
                 vector<int> temp(2);
                 temp[0] = 0;
                 for (int j = 1; j <= 1; j++) {
@@ -181,15 +183,13 @@ int main() {
                     randomNum = temp[j];
                     if (randomNum % 2 == 0) {
                         ng[i].first += g1.substr(temp[j - 1], randomNum);
-                    }
-                    else {
+                    } else {
                         ng[i].first += g2.substr(temp[j - 1], randomNum);
                     }
                 }
                 if (temp.back() % 2 == 0) {
                     ng[i].first += g1.substr(temp.back());
-                }
-                else {
+                } else {
                     ng[i].first += g2.substr(temp.back());
                 }
             }
