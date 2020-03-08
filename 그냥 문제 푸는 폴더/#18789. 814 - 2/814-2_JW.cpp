@@ -6,13 +6,14 @@
 #include <cmath>
 #include <queue>
 #include <fstream>
+#include <ctime>
 #define GEN_NUM 10
 #define CROSS 5
 #define RAN 3
 
 using namespace std;
-int dx[8] = {1, 0, 0, -1, 1, 1, -1, -1};
-int dy[8] = {0, 1, -1, 0, 1, -1, 1, -1};
+int dx[8] = { 1, 0, 0, -1, 1, 1, -1, -1 };
+int dy[8] = { 0, 1, -1, 0, 1, -1, 1, -1 };
 
 bool _solve(vector<vector<int>>& map, vector<int> list, int x, int y) {
     queue<pair<pair<int, int>, vector<int>>> task;
@@ -76,7 +77,7 @@ int main() {
     freopen("input.txt", "r", stdin);
 #endif
     // string test;
-    srand(time(0));
+    srand(time(NULL));
     vector<pair<string, int>> g(GEN_NUM);
     for (int i = 0; i < GEN_NUM; i++) {
         g[i].first = "";
@@ -167,7 +168,8 @@ int main() {
             int anotherRandom = rand() % 10;
             if (true || anotherRandom > CROSS) {
                 ng[i].first = (randomNum % 2 == 0 ? g1 : g2);
-            } else {
+            }
+            else {
                 vector<int> temp(2);
                 temp[0] = 0;
                 for (int j = 1; j <= 1; j++) {
@@ -179,13 +181,15 @@ int main() {
                     randomNum = temp[j];
                     if (randomNum % 2 == 0) {
                         ng[i].first += g1.substr(temp[j - 1], randomNum);
-                    } else {
+                    }
+                    else {
                         ng[i].first += g2.substr(temp[j - 1], randomNum);
                     }
                 }
                 if (temp.back() % 2 == 0) {
                     ng[i].first += g1.substr(temp.back());
-                } else {
+                }
+                else {
                     ng[i].first += g2.substr(temp.back());
                 }
             }
