@@ -8,12 +8,15 @@
 #include <fstream>
 #include <ctime>
 #define GEN_NUM 15
-#define CROSS 7
-#define RAN 3
+#define CROSS 9
+#define RAN 5
 
 using namespace std;
 int dx[8] = {1, 0, 0, -1, 1, 1, -1, -1};
 int dy[8] = {0, 1, -1, 0, 1, -1, 1, -1};
+bool visitied[10000] = {
+    false,
+};
 
 bool _solve(vector<vector<int>>& map, vector<int> list, int x, int y) {
     queue<pair<pair<int, int>, vector<int>>> task;
@@ -104,7 +107,10 @@ int main() {
                 }
             }
             int score = stoi(solve(map)) - 1;
+
             g[i].second = score;
+            if (visitied[score])
+                continue;
             if (score >= 650) {
                 cout << score << "\n";
                 // cout << endl;
@@ -139,6 +145,7 @@ int main() {
                 cout << score << endl;
                 break;
             }
+            visitied[score] = true;
         }
         long double roulette[GEN_NUM];
         long long sum = 0;
@@ -153,7 +160,7 @@ int main() {
 
         vector<pair<string, int>> ng(GEN_NUM);
         string g1, g2;
-        for (int i = 0; i < GEN_NUM - 1; i++) {
+        for (int i = 0; i < GEN_NUM - 2; i++) {
             int randomNum = rand() % 99 + 1;
             for (int j = 0; j < GEN_NUM; j++) {
                 if (randomNum <= roulette[j]) {
@@ -175,34 +182,29 @@ int main() {
                 vector<int> temp(2);
                 temp[0] = 0;
                 for (int j = 1; j <= 1; j++) {
-                    temp[j] = rand() % (8 * 14);
+                    temp[j] = rand() % 7 + 1;
                 }
-                sort(temp.begin(), temp.end());
-                ng[i].first = "";
-                for (int j = 1; j <= 1; j++) {
-                    randomNum = temp[j];
-                    if (randomNum % 2 == 0) {
-                        ng[i].first += g1.substr(temp[j - 1], randomNum);
-                    } else {
-                        ng[i].first += g2.substr(temp[j - 1], randomNum);
-                    }
-                }
-                if (temp.back() % 2 == 0) {
-                    ng[i].first += g1.substr(temp.back());
-                } else {
-                    ng[i].first += g2.substr(temp.back());
-                }
+                ng[i].first = g1.substr(0, temp[i] * 14);
+                ng[i].first += g2.substr(temp[i] * 14);
+                // sort(temp.begin(), temp.end());
+                // ng[i].first = "";
+                // for (int j = 1; j <= 1; j++) {
+                //     randomNum = temp[j];
+                //     if (randomNum % 2 == 0) {
+                //         ng[i].first += g1.substr(temp[j - 1], randomNum);
+                //     } else {
+                //         ng[i].first += g2.substr(temp[j - 1], randomNum);
+                //     }
+                // }
+                // if (temp.back() % 2 == 0) {
+                //     ng[i].first += g1.substr(temp.back());
+                // } else {
+                //     ng[i].first += g2.substr(temp.back());
+                // }
             }
         }
 
-        int maxi = 0;
-        for (int i = 1; i < GEN_NUM; i++) {
-            if (g[maxi].second < g[i].second)
-                maxi = i;
-        }
-        // cout << "MAX : " << g[maxi].second << endl;
-        ng[GEN_NUM - 1].first = g[maxi].first;
-        for (int j = 0; j < GEN_NUM; j++) {
+        for (int j = 0; j < GEN_NUM - 2; j++) {
             for (int i = 0; i < 8 * 14; i++) {
                 int randomNum = rand() % 100;
                 if (randomNum <= RAN) {
@@ -210,7 +212,16 @@ int main() {
                 }
             }
         }
-
+        int maxi = 0;
+        for (int i = 1; i < GEN_NUM - 2; i++) {
+            if (g[maxi].second < g[i].second)
+                maxi = i;
+        }
+        // cout << "MAX : " << g[maxi].second << endl;
+        ng[GEN_NUM - 2].first = g[maxi].first;
+        ng[GEN_NUM - 1].first = g[maxi].first;
+        int randomNum = rand() % (8 * 14);
+        ng[GEN_NUM - 1].first[randomNum] = to_string(rand() % 10)[0];
         for (int i = 0; i < GEN_NUM; i++) {
             g[i] = ng[i];
         }
