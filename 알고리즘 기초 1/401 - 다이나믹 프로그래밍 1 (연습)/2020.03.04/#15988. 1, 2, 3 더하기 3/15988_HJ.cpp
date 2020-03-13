@@ -11,8 +11,8 @@ int maxValue(int a, int b){
 }
 
 int main(){
-    int caseNum[MAXNUM] = {0};
-    int resultOrder[MAXNUM] = {0};
+    long long caseNum[MAXNUM];
+    int resultOrder[MAXNUM];
     int maxcase = 0;
     caseNum[1] = 1;
     caseNum[2] = 2;
@@ -27,7 +27,7 @@ int main(){
         maxcase = maxValue(maxcase, resultOrder[i]);
     }
     for(int i = 4 ; i <= maxcase ; i++){
-        caseNum[i] = caseNum[i - 1] + caseNum[i - 2] + caseNum[i - 3];
+        caseNum[i] = ((caseNum[i - 1]%1000000009) + (caseNum[i - 2]%1000000009) + (caseNum[i - 3]%1000000009))%1000000009;
     }
     
     for(int i = 0; i < test_case_num; i++){

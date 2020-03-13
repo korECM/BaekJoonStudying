@@ -9,8 +9,8 @@ char PS[MAX_INT][MAX_STACK_SIZE];
 
 int top[MAX_INT] = {-1};
 
-int IsEmpty(){
-    if(top < 0){
+int IsEmpty(int i){
+    if(top[i] < 0){
         return 1;
     }
     else{
@@ -35,7 +35,7 @@ void push(int i, char value){
 }
 
 char pop(int i){
-    if(IsEmpty() == 1){
+    if(IsEmpty(i) == 1){
         return -1;
     } else {
         return stack[i][top[i]--];
@@ -43,7 +43,7 @@ char pop(int i){
 }
 
 char peak(int i){
-    if(IsEmpty() == 1){
+    if(IsEmpty(i) == 1){
         return -1;
     } else {
         return stack[i][top[i]];
@@ -52,13 +52,13 @@ char peak(int i){
 
 int main(){
     int order_size = 0;
-    char oper[MAX_STACK_SIZE] = {'\0'};
+    char oper[MAX_STACK_SIZE] = {'\0'}; 
     scanf("%d\n", &order_size);
-
+    
     for(int i = 0; i < order_size; i++){
         fgets(PS[i], sizeof(PS[i]), stdin);
     }
-
+    
     for(int i = 0; i < order_size; i++){
         int yes = 1;
         for(int j = 0; j < MAX_INT; j++){
@@ -71,7 +71,7 @@ int main(){
             }else{
                 break;
             }
-
+            
             if((PS[i][j + 1] ==')') && (top[i] == -1)){
                 printf("NO\n");
                 yes = 0;
@@ -82,7 +82,7 @@ int main(){
                 yes = 0;
                 break;
             }
-
+            
         }
             if(yes == 1 && top[i] != 0){
                // printf("    %d  ", top[i]);
@@ -93,5 +93,9 @@ int main(){
                 printf("YES\n");
             }
     }
+    
+   
+    
+    
     return 0;
 }
